@@ -49,7 +49,8 @@ HEADERS += \
     knight.h \
     bishop.h \
     king.h \
-    queen.h
+    queen.h \
+    chess_const.h
 
 FORMS += \
         mainwindow.ui \

@@ -1,7 +1,10 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 
+#include<vector>
 #include <QGraphicsPixmapItem>
+#include <QPoint>
+#include "chess_const.h"
 
 enum class FigureSide {
     WHITE,
@@ -13,10 +16,12 @@ class Figure : public QGraphicsPixmapItem
 public:
     Figure(FigureSide side, int x, int y, int size);
     virtual ~Figure();
+    QPoint getBoardPos();
+    virtual std::vector<QPoint> getPossibleMoves( const std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE>& figures) = 0;
+    FigureSide getSide();
 protected:
     FigureSide side_;
-    int posX_;
-    int posY_;
+    QPoint boardPos_;
     int fieldSize_;
 };
 
