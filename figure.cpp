@@ -11,6 +11,15 @@ QPoint Figure::getBoardPos() {
     return boardPos_;
 }
 
+void Figure::setBoardPos(QPoint point) {
+    boardPos_ = point;
+    setPos(boardPos_.x() * fieldSize_, boardPos_.y() * fieldSize_);
+}
+
+void Figure::resetPos() {
+    setPos(boardPos_.x() * fieldSize_, boardPos_.y() * fieldSize_);
+}
+
 FigureSide Figure::getSide() {
     return side_;
 }

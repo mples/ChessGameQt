@@ -18,6 +18,8 @@ public:
     virtual ~Figure();
     QPoint getBoardPos();
     virtual std::vector<QPoint> getPossibleMoves( const std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE>& figures) = 0;
+    void setBoardPos(QPoint point);
+    void resetPos();
     FigureSide getSide();
 protected:
     FigureSide side_;

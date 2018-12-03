@@ -1,4 +1,5 @@
 #include "chesstablewidget.h"
+#include <algorithm>
 #include "QGraphicsPixmapItem"
 #include <QtDebug>
 #include <QMouseEvent>
@@ -33,13 +34,13 @@ void ChessTableWidget::mousePressEvent(QMouseEvent *event)
 
     Figure * figure = figuresTable_[figure_coord.x()][figure_coord.y()];
     if(figure != nullptr) {
-        std::vector<QPoint>moves = figure->getPossibleMoves(figuresTable_);
-        for(QPoint point : moves) {
-            fieldsTable_[point.x()][point.y()]->setBrush(Qt::yellow);
+        if(selectedFigure_ != nullptr) {
+            clearAvailableMoves();
         }
+        selectedFigure_ = figure;
+        availableMoves_ = figure->getPossibleMoves(figuresTable_);
+        paintAvailableMoves();
     }
-
-
 }
 
 void ChessTableWidget::paintTable() {
@@ -177,4 +178,52 @@ Figure *ChessTableWidget::getBlackFigure(QPoint point) {
         }
     }
     return nullptr;
+}
+
+void ChessTableWidget::paintAvailableMoves() {
+    for(QPoint point : availableMoves_) {
+        fieldsTable_[point.x()][point.y()]->setBrush(Qt::yellow);
+    }
+}
+
+void ChessTableWidget::clearAvailableMoves(){
+    for(QPoint point : availableMoves_) {
+        if((((point.x()*TABLE_SIZE )+ point.y() + point.x())% 2 ) == 0 ){
+            fieldsTable_[point.x()][point.y()]->setBrush(Qt::gray);
+        }
+        else {
+            fieldsTable_[point.x()][point.y()]->setBrush(Qt::green);
+        }
+    }
+}
+
+void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
+    Figure * attacked_figure = figuresTable_[pos.x()][pos.y()];
+    if(attacked_figure) {
+        delete attacked_figure;
+    }
+    QPoint old_pos = figure->getBoardPos();
+    figuresTable_[old_pos.x()][old_pos.y()] = nullptr;
+
+    figuresTable_[pos.x()][pos.y()] = figure;
+    figure->setBoardPos(pos);
+}
+
+void ChessTableWidget::mouseReleaseEvent(QMouseEvent *event) {
+    QPoint point = pixelToBoardCoord(event->pos());
+    auto found = std::find(availableMoves_.begin(), availableMoves_.end(), point);
+    if(found != availableMoves_.end()){
+        moveFigureToPos(selectedFigure_, point);
+        selectedFigure_->setBoardPos(point);
+        clearAvailableMoves();
+    }
+    else {
+        selectedFigure_->resetPos();
+    }
+}
+
+void ChessTableWidget::mouseMoveEvent(QMouseEvent *event) {
+    if(selectedFigure_) {
+        selectedFigure_->setPos(event->pos() - QPoint(FIELD_SIZE/2, FIELD_SIZE/2));
+    }
 }
