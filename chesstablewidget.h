@@ -20,12 +20,13 @@ private:
     static const int FIELD_SIZE = 100;
     static const int TABLE_SIZE = 8;
     QGraphicsScene* scene_;
-    std::array<std::array<QGraphicsRectItem*, 8>, 8> fieldsTable_;
-    std::array<std::array<Figure*, 8>, 8> figuresTable_;
+    std::array<std::array<QGraphicsRectItem*, BOARD_SIZE>, BOARD_SIZE> fieldsTable_;
+    std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE> figuresTable_;
     std::vector<Figure*> blackFigures_;
     std::vector<Figure*> whiteFigures_;
     Figure* selectedFigure_ = nullptr;
     std::vector<QPoint> availableMoves_;
+    FigureSide movingSide_ = FigureSide::WHITE;
 
     void paintTable();
     void initFigures();
@@ -35,6 +36,7 @@ private:
     void paintAvailableMoves();
     void clearAvailableMoves();
     void moveFigureToPos(Figure* figure, QPoint pos);
+    void changeMovingSide();
 signals:
 
 public slots:

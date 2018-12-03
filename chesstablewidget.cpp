@@ -33,7 +33,7 @@ void ChessTableWidget::mousePressEvent(QMouseEvent *event)
     qDebug() << "Board: " << figure_coord;
 
     Figure * figure = figuresTable_[figure_coord.x()][figure_coord.y()];
-    if(figure != nullptr) {
+    if(figure != nullptr && figure->getSide() == movingSide_) {
         if(selectedFigure_ != nullptr) {
             clearAvailableMoves();
         }
@@ -195,6 +195,7 @@ void ChessTableWidget::clearAvailableMoves(){
             fieldsTable_[point.x()][point.y()]->setBrush(Qt::green);
         }
     }
+    availableMoves_.clear();
 }
 
 void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
@@ -209,16 +210,31 @@ void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
     figure->setBoardPos(pos);
 }
 
-void ChessTableWidget::mouseReleaseEvent(QMouseEvent *event) {
-    QPoint point = pixelToBoardCoord(event->pos());
-    auto found = std::find(availableMoves_.begin(), availableMoves_.end(), point);
-    if(found != availableMoves_.end()){
-        moveFigureToPos(selectedFigure_, point);
-        selectedFigure_->setBoardPos(point);
-        clearAvailableMoves();
+void ChessTableWidget::changeMovingSide() {
+    if(movingSide_ == FigureSide::WHITE) {
+        movingSide_ = FigureSide::BLACK;
     }
     else {
-        selectedFigure_->resetPos();
+        movingSide_ = FigureSide::WHITE;
+    }
+}
+
+void ChessTableWidget::mouseReleaseEvent(QMouseEvent *event) {
+    if(selectedFigure_) {
+        QPoint point = pixelToBoardCoord(event->pos());
+        auto found = std::find(availableMoves_.begin(), availableMoves_.end(), point);
+        if(found != availableMoves_.end()){
+            moveFigureToPos(selectedFigure_, point);
+            selectedFigure_->setBoardPos(point);
+            clearAvailableMoves();
+            selectedFigure_ = nullptr;
+            changeMovingSide();
+        }
+        else {
+            selectedFigure_->resetPos();
+            selectedFigure_ = nullptr;
+            clearAvailableMoves();
+        }
     }
 }
 

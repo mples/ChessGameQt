@@ -15,86 +15,102 @@ std::vector<QPoint> King::getPossibleMoves(const std::array<std::array<Figure*, 
     QPoint temp = QPoint(boardPos_.x() + 1, boardPos_.y() + 1 );
     if(temp.x() < BOARD_SIZE && temp.y() < BOARD_SIZE) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+         }
+        else
+            moves.push_back(temp);
     }
     temp = QPoint(boardPos_.x() - 1, boardPos_.y() - 1 );
 
     if(temp.x() >= 0 && temp.y() >= 0) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
 
     temp = QPoint(boardPos_.x() - 1, boardPos_.y() + 1 );
 
     if(temp.x() >= 0 && temp.y() < BOARD_SIZE) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
 
     temp = QPoint(boardPos_.x() + 1, boardPos_.y() - 1 );
 
     if(temp.x() < BOARD_SIZE && temp.y() >= 0) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
 
 
     temp = QPoint(boardPos_.x() + 1, boardPos_.y()  );
     if(temp.x() < BOARD_SIZE ) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
     temp = QPoint(boardPos_.x() - 1, boardPos_.y()  );
 
     if(temp.x() >= 0 ) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
 
     temp = QPoint(boardPos_.x(), boardPos_.y() - 1);
 
     if(temp.y() >= 0) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
 
     temp = QPoint(boardPos_.x(), boardPos_.y() + 1);
 
     if(temp.y() < BOARD_SIZE) {
         if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
-                }
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
+            }
+        }
+        else
+            moves.push_back(temp);
     }
 
     return moves;
