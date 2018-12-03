@@ -1,5 +1,5 @@
 #include "pawn.h"
-
+#include <cmath>
 
 Pawn::Pawn(FigureSide s, int x, int y, int size) : Figure(s, x, y, size)
 {
@@ -80,4 +80,10 @@ std::vector<QPoint> Pawn::getPossibleMoves(const std::array<std::array<Figure*, 
     }
 
     return moves;
+}
+
+void Pawn::setBoardPos(QPoint point) {
+    untouched_ = false;
+    boardPos_ = point;
+    setPos(boardPos_.x() * fieldSize_, boardPos_.y() * fieldSize_);
 }

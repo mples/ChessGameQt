@@ -13,6 +13,10 @@ private:
     // Figure interface
 public:
     std::vector<QPoint> getPossibleMoves(const std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE>& figures);
+
+    // Figure interface
+public:
+    void setBoardPos(QPoint point);
 };
 
 #endif // PAWN_H

@@ -225,7 +225,7 @@ void ChessTableWidget::mouseReleaseEvent(QMouseEvent *event) {
         auto found = std::find(availableMoves_.begin(), availableMoves_.end(), point);
         if(found != availableMoves_.end()){
             moveFigureToPos(selectedFigure_, point);
-            selectedFigure_->setBoardPos(point);
+            //selectedFigure_->setBoardPos(point);
             clearAvailableMoves();
             selectedFigure_ = nullptr;
             changeMovingSide();
