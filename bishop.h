@@ -9,7 +9,7 @@ public:
 
     // Figure interface
 public:
-    std::vector<QPoint> getPossibleMoves(const std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE>& figures);
+    std::vector<QPoint> getPossibleMoves(const ChessBoard& board);
 };
 
 #endif // BISHOP_H

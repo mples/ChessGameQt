@@ -14,34 +14,12 @@
 
 ChessTableWidget::ChessTableWidget(QWidget *parent) : QGraphicsView(parent)
 {
-    for(int i = 0 ; i < BOARD_SIZE ; ++i) {
-        for( int j = 0 ; j < BOARD_SIZE ; ++j) {
-            figuresTable_[i][j] = nullptr;
-        }
-    }
-
     scene_ = new QGraphicsScene();
     setScene(scene_);
     paintTable();
     initFigures();
 }
 
-void ChessTableWidget::mousePressEvent(QMouseEvent *event)
-{
-    qDebug() << "Position: " << event->pos() ;
-    QPoint figure_coord = pixelToBoardCoord(event->pos() );
-    qDebug() << "Board: " << figure_coord;
-
-    Figure * figure = figuresTable_[figure_coord.x()][figure_coord.y()];
-    if(figure != nullptr && figure->getSide() == movingSide_) {
-        if(selectedFigure_ != nullptr) {
-            clearAvailableMoves();
-        }
-        selectedFigure_ = figure;
-        availableMoves_ = figure->getPossibleMoves(figuresTable_);
-        paintAvailableMoves();
-    }
-}
 
 void ChessTableWidget::paintTable() {
     for(int i = 0 ; i < TABLE_SIZE ; ++i){
@@ -64,104 +42,84 @@ void ChessTableWidget::initFigures() {
     for(int i = 0 ; i < 8 ; ++i) {
         Figure* pawn = new Pawn(FigureSide::WHITE, i, 6, FIELD_SIZE);
         scene_->addItem(pawn);
-        whiteFigures_.push_back(pawn);
-        figuresTable_[i][6] = pawn;
+        board_.addFigure(pawn, i, 6);
     }
 
     Figure* w_rook_left = new Rook(FigureSide::WHITE, 0, 7, FIELD_SIZE);
     scene_->addItem(w_rook_left);
-    whiteFigures_.push_back(w_rook_left);
-    figuresTable_[0][7] = w_rook_left;
+    board_.addFigure(w_rook_left, 0, 7);
 
     Figure* w_rook_right = new Rook(FigureSide::WHITE, 7, 7, FIELD_SIZE);
     scene_->addItem(w_rook_right);
-    whiteFigures_.push_back(w_rook_right);
-    figuresTable_[7][7] = w_rook_right;
+    board_.addFigure(w_rook_right, 7, 7);
 
     Figure* w_knight_left = new Knight(FigureSide::WHITE, 1, 7, FIELD_SIZE);
     scene_->addItem(w_knight_left);
-    whiteFigures_.push_back(w_knight_left);
-    figuresTable_[1][7] = w_knight_left;
+    board_.addFigure(w_knight_left, 1, 7);
 
     Figure* w_knight_right = new Knight(FigureSide::WHITE, 6, 7, FIELD_SIZE);
     scene_->addItem(w_knight_right);
-    whiteFigures_.push_back(w_knight_right);
-    figuresTable_[6][7] = w_knight_right;
+    board_.addFigure(w_knight_right, 6, 7);
 
     Figure* w_bishop_left = new Bishop(FigureSide::WHITE, 2, 7, FIELD_SIZE);
     scene_->addItem(w_bishop_left);
-    whiteFigures_.push_back(w_bishop_left);
-    figuresTable_[2][7] = w_bishop_left;
+    board_.addFigure(w_bishop_left, 2, 7);
 
     Figure* w_bishop_right = new Bishop(FigureSide::WHITE, 5, 7, FIELD_SIZE);
     scene_->addItem(w_bishop_right);
-    whiteFigures_.push_back(w_bishop_right);
-    figuresTable_[5][7] = w_bishop_right;
+    board_.addFigure(w_bishop_right, 5, 7);
 
     Figure* w_king = new King(FigureSide::WHITE, 4, 7, FIELD_SIZE);
     scene_->addItem(w_king);
-    whiteFigures_.push_back(w_king);
-    figuresTable_[4][7] = w_king;
+    board_.addFigure(w_king, 4, 7);
 
     Figure* w_queen = new Queen(FigureSide::WHITE, 3, 7, FIELD_SIZE);
     scene_->addItem(w_queen);
-    whiteFigures_.push_back(w_queen);
-    figuresTable_[3][7] = w_queen;
+    board_.addFigure(w_queen, 3, 7);
 
     for(int i = 0 ; i < 8 ; ++i) {
         Figure* pawn = new Pawn(FigureSide::BLACK, i, 1, FIELD_SIZE);
         scene_->addItem(pawn);
-        blackFigures_.push_back(pawn);
-        figuresTable_[i][1] = pawn;
+        board_.addFigure(pawn, i, 1);
     }
 
     Figure* b_rook_left = new Rook(FigureSide::BLACK, 0, 0, FIELD_SIZE);
     scene_->addItem(b_rook_left);
-    blackFigures_.push_back(b_rook_left);
-    figuresTable_[0][0] = b_rook_left;
+    board_.addFigure(b_rook_left, 0, 0);
 
     Figure* b_rook_right = new Rook(FigureSide::BLACK, 7, 0, FIELD_SIZE);
     scene_->addItem(b_rook_right);
-    blackFigures_.push_back(b_rook_right);
-    figuresTable_[7][0] = b_rook_right;
+    board_.addFigure(b_rook_right, 7, 0);
 
     Figure* b_knight_left = new Knight(FigureSide::BLACK, 1, 0, FIELD_SIZE);
     scene_->addItem(b_knight_left);
-    blackFigures_.push_back(b_knight_left);
-    figuresTable_[1][0] = b_knight_left;
+    board_.addFigure(b_knight_left, 1, 0);
 
     Figure* b_knight_right = new Knight(FigureSide::BLACK, 6, 0, FIELD_SIZE);
     scene_->addItem(b_knight_right);
-    blackFigures_.push_back(b_knight_right);
-    figuresTable_[6][0] = b_knight_right;
+    board_.addFigure(b_knight_right, 6, 0);
 
     Figure* b_bishop_left = new Bishop(FigureSide::BLACK, 2, 0, FIELD_SIZE);
     scene_->addItem(b_bishop_left);
-    blackFigures_.push_back(b_bishop_left);
-    figuresTable_[2][0] = b_bishop_left;
+    board_.addFigure(b_bishop_left, 2, 0);
 
     Figure* b_bishop_right = new Bishop(FigureSide::BLACK, 5, 0, FIELD_SIZE);
     scene_->addItem(b_bishop_right);
-    blackFigures_.push_back(b_bishop_right);
-    figuresTable_[5][0] = b_bishop_right;
+    board_.addFigure(b_bishop_right, 5, 0);
 
     Figure* b_king = new King(FigureSide::BLACK, 4, 0, FIELD_SIZE);
     scene_->addItem(b_king);
-    blackFigures_.push_back(b_king);
-    figuresTable_[4][0] = b_king;
+    board_.addFigure(b_king, 4, 0);
 
     Figure* b_queen = new Queen(FigureSide::BLACK, 3, 0, FIELD_SIZE);
     scene_->addItem(b_queen);
-    blackFigures_.push_back(b_queen);
-    figuresTable_[3][0] = b_queen;
-
-
+    board_.addFigure(b_queen, 3, 0);
 }
 
 QPoint ChessTableWidget::pixelToBoardCoord(QPoint point) {
     return QPoint(point.x() / FIELD_SIZE,  point.y()/FIELD_SIZE);
 }
-
+/*
 Figure *ChessTableWidget::getWhiteFigure(QPoint point) {
     for(Figure* figure : whiteFigures_) {
         if(figure->getBoardPos() == point){
@@ -178,7 +136,7 @@ Figure *ChessTableWidget::getBlackFigure(QPoint point) {
         }
     }
     return nullptr;
-}
+}*/
 
 void ChessTableWidget::paintAvailableMoves() {
     for(QPoint point : availableMoves_) {
@@ -199,7 +157,7 @@ void ChessTableWidget::clearAvailableMoves(){
 }
 
 void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
-    Figure * attacked_figure = figuresTable_[pos.x()][pos.y()];
+    /*Figure * attacked_figure = figuresTable_[pos.x()][pos.y()];
     if(attacked_figure) {
         delete attacked_figure;
     }
@@ -207,7 +165,8 @@ void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
     figuresTable_[old_pos.x()][old_pos.y()] = nullptr;
 
     figuresTable_[pos.x()][pos.y()] = figure;
-    figure->setBoardPos(pos);
+    figure->setBoardPos(pos);*/
+    board_.moveFromTo(figure->getBoardPos(), pos);
 }
 
 void ChessTableWidget::changeMovingSide() {
@@ -216,6 +175,23 @@ void ChessTableWidget::changeMovingSide() {
     }
     else {
         movingSide_ = FigureSide::WHITE;
+    }
+}
+
+void ChessTableWidget::mousePressEvent(QMouseEvent *event)
+{
+    qDebug() << "Position: " << event->pos() ;
+    QPoint figure_coord = pixelToBoardCoord(event->pos() );
+    qDebug() << "Board: " << figure_coord;
+
+    Figure * figure = board_.getFigureAt(figure_coord);
+    if(figure != nullptr && figure->getSide() == movingSide_) {
+        if(selectedFigure_ != nullptr) {
+            clearAvailableMoves();
+        }
+        selectedFigure_ = figure;
+        availableMoves_ = board_.getAllPosibleMoves(figure_coord);
+        paintAvailableMoves();
     }
 }
 

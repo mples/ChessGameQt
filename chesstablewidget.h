@@ -10,6 +10,7 @@
 #include<array>
 #include<vector>
 #include "figure.h"
+#include "chessboard.h"
 
 class ChessTableWidget : public QGraphicsView
 {
@@ -21,9 +22,7 @@ private:
     static const int TABLE_SIZE = 8;
     QGraphicsScene* scene_;
     std::array<std::array<QGraphicsRectItem*, BOARD_SIZE>, BOARD_SIZE> fieldsTable_;
-    std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE> figuresTable_;
-    std::vector<Figure*> blackFigures_;
-    std::vector<Figure*> whiteFigures_;
+    ChessBoard board_;
     Figure* selectedFigure_ = nullptr;
     std::vector<QPoint> availableMoves_;
     FigureSide movingSide_ = FigureSide::WHITE;

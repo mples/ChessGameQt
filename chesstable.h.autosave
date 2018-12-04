@@ -1,0 +1,14 @@
+#ifndef CHESSTABLE_H
+#define CHESSTABLE_H
+#include "figure.h"
+#include <vector>
+
+class ChessTable {
+public:
+    ChessTable();
+    
+private:
+    std::vector<std::vector<Figure*>> figures_;
+};
+
+#endif // CHESSTABLE_H

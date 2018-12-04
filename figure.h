@@ -6,6 +6,8 @@
 #include <QPoint>
 #include "chess_const.h"
 
+class ChessBoard;
+
 enum class FigureSide {
     WHITE,
     BLACK
@@ -17,7 +19,7 @@ public:
     Figure(FigureSide side, int x, int y, int size);
     virtual ~Figure();
     QPoint getBoardPos();
-    virtual std::vector<QPoint> getPossibleMoves( const std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE>& figures) = 0;
+    virtual std::vector<QPoint> getPossibleMoves( const ChessBoard& board) = 0;
     virtual void setBoardPos(QPoint point);
     void resetPos();
     FigureSide getSide();

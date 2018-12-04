@@ -36,7 +36,8 @@ SOURCES += \
     knight.cpp \
     bishop.cpp \
     king.cpp \
-    queen.cpp
+    queen.cpp \
+    chessboard.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     bishop.h \
     king.h \
     queen.h \
-    chess_const.h
+    chess_const.h \
+    chessboard.h
 
 FORMS += \
         mainwindow.ui \

@@ -1,4 +1,5 @@
 #include "bishop.h"
+#include "chessboard.h"
 
 Bishop::Bishop(FigureSide s, int x, int y, int size) : Figure(s, x, y, size)
 {
@@ -10,12 +11,12 @@ Bishop::Bishop(FigureSide s, int x, int y, int size) : Figure(s, x, y, size)
     }
 }
 
-std::vector<QPoint> Bishop::getPossibleMoves(const std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE>& figures) {
+std::vector<QPoint> Bishop::getPossibleMoves(const ChessBoard& board) {
     std::vector<QPoint> moves;
     QPoint temp = QPoint(boardPos_.x() + 1, boardPos_.y() + 1 );
-    while(temp.x() < BOARD_SIZE && temp.y() < BOARD_SIZE) {
-        if(figures[temp.x()][temp.y()] != nullptr) {
-            Figure * figure = figures[temp.x()][temp.y()];
+    while(board.isValidBoardCoord(temp)) {
+        if(board.getFigureAt(temp)  != nullptr) {
+            Figure * figure = board.getFigureAt(temp);
             if(figure->getSide() != side_) {
                 moves.push_back(temp);
             }
@@ -27,9 +28,9 @@ std::vector<QPoint> Bishop::getPossibleMoves(const std::array<std::array<Figure*
     }
     temp = QPoint(boardPos_.x() - 1, boardPos_.y() - 1 );
 
-    while(temp.x() >= 0 && temp.y() >= 0) {
-        if(figures[temp.x()][temp.y()] != nullptr) {
-            Figure * figure = figures[temp.x()][temp.y()];
+    while(board.isValidBoardCoord(temp)) {
+        if(board.getFigureAt(temp) != nullptr) {
+            Figure * figure = board.getFigureAt(temp);
             if(figure->getSide() != side_) {
                 moves.push_back(temp);
             }
@@ -42,9 +43,9 @@ std::vector<QPoint> Bishop::getPossibleMoves(const std::array<std::array<Figure*
 
     temp = QPoint(boardPos_.x() - 1, boardPos_.y() + 1 );
 
-    while(temp.x() >= 0 && temp.y() < BOARD_SIZE) {
-        if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
+    while(board.isValidBoardCoord(temp)) {
+        if(board.getFigureAt(temp) != nullptr) {
+                    Figure * figure = board.getFigureAt(temp);
                     if(figure->getSide() != side_) {
                         moves.push_back(temp);
                     }
@@ -57,9 +58,9 @@ std::vector<QPoint> Bishop::getPossibleMoves(const std::array<std::array<Figure*
 
     temp = QPoint(boardPos_.x() + 1, boardPos_.y() - 1 );
 
-    while(temp.x() < BOARD_SIZE && temp.y() >= 0) {
-        if(figures[temp.x()][temp.y()] != nullptr) {
-                    Figure * figure = figures[temp.x()][temp.y()];
+    while(board.isValidBoardCoord(temp)) {
+        if(board.getFigureAt(temp) != nullptr) {
+                    Figure * figure = board.getFigureAt(temp);
                     if(figure->getSide() != side_) {
                         moves.push_back(temp);
                     }
