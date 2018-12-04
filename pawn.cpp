@@ -22,38 +22,38 @@ std::vector<QPoint> Pawn::getPossibleMoves(const std::array<std::array<Figure*, 
 
     if(side_ == FigureSide::WHITE) {
         if(untouched_) {
-            if(boardPos_.y() - 2 >= 0)
+            if(boardPos_.y() - 2 >= 0 && figures[boardPos_.x()][boardPos_.y() - 2] == nullptr)
                 moves.push_back(QPoint(boardPos_.x() , boardPos_.y() - 2));
         }
-        if(boardPos_.y() - 1 >= 0) {
+        if(boardPos_.y() - 1 >= 0 && figures[boardPos_.x()][boardPos_.y() - 1] == nullptr) {
             moves.push_back(QPoint(boardPos_.x() , boardPos_.y() - 1));
-            if(boardPos_.x() - 1 >= 0) {
-                QPoint temp = QPoint(boardPos_.x() - 1, boardPos_.y() - 1);
-                Figure * figure = figures[temp.x()][temp.y()];
-                if(figure != nullptr) {
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
+        if(boardPos_.x() - 1 >= 0) {
+            QPoint temp = QPoint(boardPos_.x() - 1, boardPos_.y() - 1);
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure != nullptr) {
+                if(figure->getSide() != side_) {
+                    moves.push_back(temp);
                 }
             }
+        }
+    }
 
-            if(boardPos_.x() + 1 < BOARD_SIZE) {
-                QPoint temp = QPoint(boardPos_.x() + 1, boardPos_.y() - 1);
-                Figure * figure = figures[temp.x()][temp.y()];
-                if(figure != nullptr) {
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
+    if(boardPos_.x() + 1 < BOARD_SIZE ) {
+        QPoint temp = QPoint(boardPos_.x() + 1, boardPos_.y() - 1);
+        Figure * figure = figures[temp.x()][temp.y()];
+        if(figure != nullptr) {
+            if(figure->getSide() != side_) {
+                moves.push_back(temp);
                 }
             }
         }
     }
     else if(side_ == FigureSide::BLACK) {
         if(untouched_) {
-            if(boardPos_.y() + 2 < BOARD_SIZE)
+            if(boardPos_.y() + 2 < BOARD_SIZE && figures[boardPos_.x()][boardPos_.y() + 2] == nullptr)
                moves.push_back(QPoint(boardPos_.x() , boardPos_.y() + 2));
         }
-        if(boardPos_.y() + 1 < BOARD_SIZE){
+        if(boardPos_.y() + 1 < BOARD_SIZE && figures[boardPos_.x()][boardPos_.y() + 1] == nullptr){
             moves.push_back(QPoint(boardPos_.x() , boardPos_.y() + 1));
 
             if(boardPos_.x() - 1 >= 0) {
@@ -65,19 +65,18 @@ std::vector<QPoint> Pawn::getPossibleMoves(const std::array<std::array<Figure*, 
                     }
                 }
             }
-
-            if(boardPos_.x() + 1 < BOARD_SIZE) {
-                QPoint temp = QPoint(boardPos_.x() + 1, boardPos_.y() + 1);
-                Figure * figure = figures[temp.x()][temp.y()];
-                if(figure != nullptr) {
-                    if(figure->getSide() != side_) {
-                        moves.push_back(temp);
-                    }
+        }
+        if(boardPos_.x() + 1 < BOARD_SIZE) {
+            QPoint temp = QPoint(boardPos_.x() + 1, boardPos_.y() + 1);
+            Figure * figure = figures[temp.x()][temp.y()];
+            if(figure != nullptr) {
+                if(figure->getSide() != side_) {
+                    moves.push_back(temp);
                 }
             }
         }
-
     }
+
 
     return moves;
 }
