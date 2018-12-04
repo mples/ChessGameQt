@@ -21,6 +21,7 @@ public:
     QPoint getBoardPos();
     virtual std::vector<QPoint> getPossibleMoves( const ChessBoard& board) = 0;
     virtual void setBoardPos(QPoint point);
+    virtual void updateScenePos();
     void resetPos();
     FigureSide getSide();
 protected:

@@ -15,12 +15,19 @@ public:
     Figure* getFigureAt(QPoint& point) const;
     Figure* getFigureAt(int x, int y) const;
     void removeFigureAt(QPoint& point);
-    void moveFromTo(QPoint from, QPoint to);
-    std::vector<QPoint> getAllPosibleMoves(QPoint at);
+    bool moveFromTo(QPoint from, QPoint to);
+    std::vector<QPoint> getAllPosibleMoves(QPoint& at);
+    bool isKingInCheck(FigureSide side);
+    std::vector<QPoint> getSidePosibleMoves(FigureSide side);
 private:
     std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE> figures_;
     std::vector<Figure*> blackFigures_;
     std::vector<Figure*> whiteFigures_;
+
+    void removeFromFigureVector(Figure* figure);
+    void addToFigureVector(Figure* figure);
+    std::vector<QPoint> getWhitePosibleMoves();
+    std::vector<QPoint> getBlackPosibleMoves();
 };
 
 #endif // CHESSTABLE_H

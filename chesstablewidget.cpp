@@ -157,16 +157,11 @@ void ChessTableWidget::clearAvailableMoves(){
 }
 
 void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
-    /*Figure * attacked_figure = figuresTable_[pos.x()][pos.y()];
-    if(attacked_figure) {
-        delete attacked_figure;
+    if(board_.moveFromTo(figure->getBoardPos(), pos)) {
+        changeMovingSide();
     }
-    QPoint old_pos = figure->getBoardPos();
-    figuresTable_[old_pos.x()][old_pos.y()] = nullptr;
+    figure->updateScenePos();
 
-    figuresTable_[pos.x()][pos.y()] = figure;
-    figure->setBoardPos(pos);*/
-    board_.moveFromTo(figure->getBoardPos(), pos);
 }
 
 void ChessTableWidget::changeMovingSide() {
@@ -201,10 +196,9 @@ void ChessTableWidget::mouseReleaseEvent(QMouseEvent *event) {
         auto found = std::find(availableMoves_.begin(), availableMoves_.end(), point);
         if(found != availableMoves_.end()){
             moveFigureToPos(selectedFigure_, point);
-            //selectedFigure_->setBoardPos(point);
             clearAvailableMoves();
             selectedFigure_ = nullptr;
-            changeMovingSide();
+
         }
         else {
             selectedFigure_->resetPos();

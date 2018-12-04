@@ -22,12 +22,12 @@ std::vector<QPoint> Pawn::getPossibleMoves(const ChessBoard& board) {
     std::vector<QPoint> moves;
 
     if(side_ == FigureSide::WHITE) {
-        if(untouched_) {
-            if(boardPos_.y() - 2 >= 0 && board.getFigureAt(boardPos_.x(), boardPos_.y() - 2) == nullptr)
-                moves.push_back(QPoint(boardPos_.x() , boardPos_.y() - 2));
-        }
         if(boardPos_.y() - 1 >= 0 && board.getFigureAt(boardPos_.x(), boardPos_.y() - 1) == nullptr) {
             moves.push_back(QPoint(boardPos_.x() , boardPos_.y() - 1));
+            if(untouched_) {
+                if(boardPos_.y() - 2 >= 0 && board.getFigureAt(boardPos_.x(), boardPos_.y() - 2) == nullptr)
+                    moves.push_back(QPoint(boardPos_.x() , boardPos_.y() - 2));
+            }
         if(boardPos_.x() - 1 >= 0) {
             QPoint temp = QPoint(boardPos_.x() - 1, boardPos_.y() - 1);
             Figure * figure = board.getFigureAt(temp);
@@ -50,13 +50,12 @@ std::vector<QPoint> Pawn::getPossibleMoves(const ChessBoard& board) {
         }
     }
     else if(side_ == FigureSide::BLACK) {
-        if(untouched_) {
-            if(boardPos_.y() + 2 < BOARD_SIZE && board.getFigureAt(boardPos_.x(), boardPos_.y() + 2) == nullptr)
-               moves.push_back(QPoint(boardPos_.x() , boardPos_.y() + 2));
-        }
         if(boardPos_.y() + 1 < BOARD_SIZE && board.getFigureAt(boardPos_.x(), boardPos_.y() + 1) == nullptr){
             moves.push_back(QPoint(boardPos_.x() , boardPos_.y() + 1));
-
+            if(untouched_) {
+                if(boardPos_.y() + 2 < BOARD_SIZE && board.getFigureAt(boardPos_.x(), boardPos_.y() + 2) == nullptr)
+                   moves.push_back(QPoint(boardPos_.x() , boardPos_.y() + 2));
+            }
             if(boardPos_.x() - 1 >= 0) {
                 QPoint temp = QPoint(boardPos_.x() - 1, boardPos_.y() + 1);
                 Figure * figure = board.getFigureAt(temp);
