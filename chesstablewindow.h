@@ -22,7 +22,8 @@ public slots:
 private:
     Ui::ChessTableWindow *ui;
     ChessTableWidget* chessTable_;
-
+    QColor oddBoardColor_;
+    QColor evenBoardColor_;
     // QWidget interface
 protected:
     void closeEvent(QCloseEvent *event);

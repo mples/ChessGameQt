@@ -7,7 +7,7 @@
 
 ChessTableWindow::ChessTableWindow(QWidget *parent, QColor odd, QColor even) :
     QMainWindow(parent),
-    ui(new Ui::ChessTableWindow) {
+    ui(new Ui::ChessTableWindow), oddBoardColor_(odd), evenBoardColor_(even) {
     ui->setupUi(this);
     chessTable_ = new ChessTableWidget(this, odd, even);
     ui->horizontalLayout->addWidget(chessTable_);
@@ -28,7 +28,7 @@ ChessTableWindow::~ChessTableWindow() {
 
 void ChessTableWindow::resetGame() {
     delete chessTable_;
-    chessTable_ = new ChessTableWidget(this);
+    chessTable_ = new ChessTableWidget(this,oddBoardColor_, evenBoardColor_);
     ui->horizontalLayout->addWidget(chessTable_);
 }
 
