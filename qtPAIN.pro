@@ -57,10 +57,10 @@ HEADERS += \
     endgamedialog.h
 
 FORMS += \
-        mainwindow.ui \
     chesstablewindow.ui \
     settingswindow.ui \
-    endgamedialog.ui
+    endgamedialog.ui \
+    menuwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

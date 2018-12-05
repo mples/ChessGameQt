@@ -12,7 +12,7 @@ class ChessTableWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ChessTableWindow(QWidget *parent = nullptr);
+    explicit ChessTableWindow(QWidget *parent = nullptr, QColor odd = Qt::gray, QColor even = Qt::green);
     ~ChessTableWindow();
     void resetGame();
 signals:

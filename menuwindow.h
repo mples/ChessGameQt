@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "settingswindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,8 +19,15 @@ public:
 private slots:
     void on_playButton_clicked();
 
+    void on_settingsButton_clicked();
+
+    void on_colorsSelected(QColor, QColor);
+
 private:
     Ui::MainWindow *ui;
+    QColor oddColor_ = Qt::gray;
+    QColor evenColor_ = Qt::green;
+    SettingsWindow* settingsWindow_;
 };
 
 #endif // MAINWINDOW_H

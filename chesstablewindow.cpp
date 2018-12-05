@@ -3,11 +3,11 @@
 #include "chesstablewidget.h"
 #include <QDialog>
 
-ChessTableWindow::ChessTableWindow(QWidget *parent) :
+ChessTableWindow::ChessTableWindow(QWidget *parent, QColor odd, QColor even) :
     QMainWindow(parent),
     ui(new Ui::ChessTableWindow) {
     ui->setupUi(this);
-    chessTable_ = new ChessTableWidget(this);
+    chessTable_ = new ChessTableWidget(this, odd, even);
     ui->horizontalLayout->addWidget(chessTable_);
     QObject::connect(chessTable_, SIGNAL(gameEnd(int)), this, SLOT(onGameFinished(int)));
 }

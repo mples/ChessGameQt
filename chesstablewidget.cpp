@@ -13,7 +13,7 @@
 #include "endgamedialog.h"
 #include "chesstablewindow.h"
 
-ChessTableWidget::ChessTableWidget(QWidget *parent) : QGraphicsView(parent)
+ChessTableWidget::ChessTableWidget(QWidget *parent, QColor odd, QColor even) : QGraphicsView(parent), oddBoardColor_(odd), evenBoardColor_(even)
 {
     scene_ = new QGraphicsScene();
     setScene(scene_);
@@ -33,10 +33,10 @@ void ChessTableWidget::paintTable() {
             rec->setPos( i*FIELD_SIZE,j*FIELD_SIZE);
             scene_->addItem(rec);
             if((((i*TABLE_SIZE )+ j +i)% 2 ) == 0 ){
-                rec->setBrush(Qt::gray);
+                rec->setBrush(oddBoardColor_);
             }
             else {
-                rec->setBrush(Qt::green);
+                rec->setBrush(evenBoardColor_);
             }
         }
     }
@@ -133,10 +133,10 @@ void ChessTableWidget::paintAvailableMoves() {
 void ChessTableWidget::clearAvailableMoves(){
     for(QPoint point : availableMoves_) {
         if((((point.x()*TABLE_SIZE )+ point.y() + point.x())% 2 ) == 0 ){
-            fieldsTable_[point.x()][point.y()]->setBrush(Qt::gray);
+            fieldsTable_[point.x()][point.y()]->setBrush(oddBoardColor_);
         }
         else {
-            fieldsTable_[point.x()][point.y()]->setBrush(Qt::green);
+            fieldsTable_[point.x()][point.y()]->setBrush(evenBoardColor_);
         }
     }
     availableMoves_.clear();

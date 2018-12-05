@@ -16,7 +16,7 @@ class ChessTableWidget : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit ChessTableWidget(QWidget *parent = nullptr);
+    explicit ChessTableWidget(QWidget *parent = nullptr, QColor odd = Qt::gray, QColor even = Qt::green);
 private:
     static const int FIELD_SIZE = 100;
     static const int TABLE_SIZE = 8;
@@ -26,6 +26,8 @@ private:
     Figure* selectedFigure_ = nullptr;
     std::vector<QPoint> availableMoves_;
     FigureSide movingSide_ = FigureSide::WHITE;
+    QColor oddBoardColor_;
+    QColor evenBoardColor_;
 
     void paintTable();
     void initFigures();
