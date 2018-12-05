@@ -11,6 +11,7 @@
 #include "king.h"
 #include "queen.h"
 #include "endgamedialog.h"
+#include "chesstablewindow.h"
 
 ChessTableWidget::ChessTableWidget(QWidget *parent) : QGraphicsView(parent)
 {
@@ -143,6 +144,7 @@ void ChessTableWidget::clearAvailableMoves(){
 
 void ChessTableWidget::moveFigureToPos(Figure *figure, QPoint pos) {
     if(board_.moveFromTo(figure->getBoardPos(), pos)) {
+        figure->updateScenePos();
         changeMovingSide();
     }
     figure->updateScenePos();
@@ -158,17 +160,16 @@ void ChessTableWidget::changeMovingSide() {
     }
 
     if(board_.isCheckmate(movingSide_)) {
-        EndGameDialog * end_dialog = new EndGameDialog();
+        EndGameDialog * end_dialog = new EndGameDialog(Figure::getOppositeSide(movingSide_), this->parentWidget());
+        QObject::connect(end_dialog, SIGNAL(finished(int)), this, SIGNAL(gameEnd(int)));
         end_dialog->exec();
 
     }
 }
 
-void ChessTableWidget::mousePressEvent(QMouseEvent *event)
-{
-    qDebug() << "Position: " << event->pos() ;
+
+void ChessTableWidget::mousePressEvent(QMouseEvent *event) {
     QPoint figure_coord = pixelToBoardCoord(event->pos() );
-    qDebug() << "Board: " << figure_coord;
 
     Figure * figure = board_.getFigureAt(figure_coord);
     if(figure != nullptr && figure->getSide() == movingSide_) {

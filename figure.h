@@ -24,6 +24,7 @@ public:
     virtual void updateScenePos();
     void resetPos();
     FigureSide getSide();
+    static FigureSide getOppositeSide(FigureSide side);
 protected:
     FigureSide side_;
     QPoint boardPos_;

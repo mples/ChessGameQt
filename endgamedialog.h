@@ -2,6 +2,7 @@
 #define ENDGAMEDIALOG_H
 
 #include <QDialog>
+#include "figure.h"
 
 namespace Ui {
 class EndGameDialog;
@@ -12,14 +13,13 @@ class EndGameDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit EndGameDialog(QWidget *parent = nullptr);
+    explicit EndGameDialog(FigureSide side, QWidget *parent = nullptr);
     ~EndGameDialog();
 
-private slots:
-    void on_nextGameButton_clicked();
 
 private:
     Ui::EndGameDialog *ui;
+
 };
 
 #endif // ENDGAMEDIALOG_H

@@ -27,3 +27,12 @@ void Figure::resetPos() {
 FigureSide Figure::getSide() {
     return side_;
 }
+
+FigureSide Figure::getOppositeSide(FigureSide side) {
+    if(side ==FigureSide::WHITE){
+        return FigureSide::BLACK;
+    }
+    else {
+        return FigureSide::WHITE;
+    }
+}

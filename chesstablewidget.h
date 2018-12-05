@@ -37,7 +37,7 @@ private:
     void moveFigureToPos(Figure* figure, QPoint pos);
     void changeMovingSide();
 signals:
-
+    void gameEnd(int);
 public slots:
 
     // QWidget interface

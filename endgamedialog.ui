@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>359</width>
-    <height>138</height>
+    <width>414</width>
+    <height>146</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,25 +31,50 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QPushButton" name="nextGameButton">
-       <property name="text">
-        <string>Next game</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="backToMenuButton">
-       <property name="text">
-        <string>Back to menu</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
    </item>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>EndGameDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>355</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>252</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>EndGameDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>382</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
