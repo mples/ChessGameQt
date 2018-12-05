@@ -7,13 +7,13 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MenuWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit MenuWindow(QWidget *parent = nullptr);
+    ~MenuWindow();
 
 private slots:
     void on_playButton_clicked();

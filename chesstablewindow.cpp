@@ -15,3 +15,10 @@ ChessTableWindow::~ChessTableWindow()
 {
     delete ui;
 }
+
+void ChessTableWindow::closeEvent(QCloseEvent *event)
+{
+    QWidget::closeEvent(event);
+
+    parentWidget()->show();
+}

@@ -18,6 +18,9 @@ ChessTableWidget::ChessTableWidget(QWidget *parent) : QGraphicsView(parent)
     setScene(scene_);
     paintTable();
     initFigures();
+    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 
@@ -119,24 +122,6 @@ void ChessTableWidget::initFigures() {
 QPoint ChessTableWidget::pixelToBoardCoord(QPoint point) {
     return QPoint(point.x() / FIELD_SIZE,  point.y()/FIELD_SIZE);
 }
-/*
-Figure *ChessTableWidget::getWhiteFigure(QPoint point) {
-    for(Figure* figure : whiteFigures_) {
-        if(figure->getBoardPos() == point){
-            return figure;
-        }
-    }
-    return nullptr;
-}
-
-Figure *ChessTableWidget::getBlackFigure(QPoint point) {
-    for(Figure* figure : blackFigures_) {
-        if(figure->getBoardPos() == point){
-            return figure;
-        }
-    }
-    return nullptr;
-}*/
 
 void ChessTableWidget::paintAvailableMoves() {
     for(QPoint point : availableMoves_) {
@@ -171,6 +156,7 @@ void ChessTableWidget::changeMovingSide() {
     else {
         movingSide_ = FigureSide::WHITE;
     }
+    qDebug() << "Checkmate: " << board_.isCheckmate(movingSide_);
 }
 
 void ChessTableWidget::mousePressEvent(QMouseEvent *event)

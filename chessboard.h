@@ -19,6 +19,8 @@ public:
     std::vector<QPoint> getAllPosibleMoves(QPoint& at);
     bool isKingInCheck(FigureSide side);
     std::vector<QPoint> getSidePosibleMoves(FigureSide side);
+    bool isCheckmate(FigureSide side);
+    bool isMovePossible(QPoint from, QPoint to);
 private:
     std::array<std::array<Figure*, BOARD_SIZE>, BOARD_SIZE> figures_;
     std::vector<Figure*> blackFigures_;

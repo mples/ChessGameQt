@@ -1,8 +1,8 @@
-#include "mainwindow.h"
+#include "menuwindow.h"
 #include "ui_mainwindow.h"
 #include "chesstablewindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MenuWindow::MenuWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -10,14 +10,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-MainWindow::~MainWindow()
+MenuWindow::~MenuWindow()
 {
     delete ui;
 }
 
-void MainWindow::on_playButton_clicked()
+void MenuWindow::on_playButton_clicked()
 {
     ChessTableWindow * chess_table_window = new ChessTableWindow(this);
 
     chess_table_window->show();
+    this->hide();
 }

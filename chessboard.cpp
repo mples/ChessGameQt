@@ -90,7 +90,6 @@ bool ChessBoard::moveFromTo(QPoint from, QPoint to) {
                 if(attacked != nullptr) {
                     delete attacked;
                 }
-                //to_move->setBoardPos(to);
                 return true;
             }
         }
@@ -160,6 +159,54 @@ std::vector<QPoint> ChessBoard::getSidePosibleMoves(FigureSide side) {
     }
     else {
         return getBlackPosibleMoves();
+    }
+}
+
+bool ChessBoard::isCheckmate(FigureSide side) {
+    std::vector<Figure*>* side_list;
+    if(side == FigureSide::WHITE){
+        side_list = &whiteFigures_;
+    }
+    else {
+        side_list = &blackFigures_;
+    }
+    for(Figure* figure : *side_list) {
+        std::vector<QPoint> moves = figure->getPossibleMoves(*this);
+        for(QPoint point : moves) {
+            if(isMovePossible(figure->getBoardPos(), point)){
+                return false;
+            }
+        }
+
+    }
+    return true;
+}
+
+bool ChessBoard::isMovePossible(QPoint from, QPoint to) {
+    if(isValidBoardCoord(from) && isValidBoardCoord(to)) {
+        Figure* attacked = getFigureAt(to);
+        Figure* to_move = getFigureAt(from);
+        if(to_move != nullptr) {
+            figures_[to.x()][to.y()] = to_move;
+            figures_[from.x()][from.y()] = nullptr;
+            to_move->setBoardPos(to);;
+            removeFromFigureVector(attacked);
+            if(isKingInCheck(to_move->getSide())){
+                figures_[to.x()][to.y()] = attacked;
+                figures_[from.x()][from.y()] = to_move;
+                to_move->setBoardPos(from);
+                addToFigureVector(attacked);
+                return false;
+            }
+            else {
+                figures_[to.x()][to.y()] = attacked;
+                figures_[from.x()][from.y()] = to_move;
+                to_move->setBoardPos(from);
+                addToFigureVector(attacked);
+                return true;
+            }
+        }
+
     }
 }
 

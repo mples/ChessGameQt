@@ -26,7 +26,6 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     chesstablewindow.cpp \
     settingswindow.cpp \
     chesstablewidget.cpp \
@@ -37,10 +36,10 @@ SOURCES += \
     bishop.cpp \
     king.cpp \
     queen.cpp \
-    chessboard.cpp
+    chessboard.cpp \
+    menuwindow.cpp
 
 HEADERS += \
-        mainwindow.h \
     chesstablewindow.h \
     settingswindow.h \
     chesstablewidget.h \
@@ -52,7 +51,8 @@ HEADERS += \
     king.h \
     queen.h \
     chess_const.h \
-    chessboard.h
+    chessboard.h \
+    menuwindow.h
 
 FORMS += \
         mainwindow.ui \

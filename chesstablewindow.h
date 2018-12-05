@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::ChessTableWindow *ui;
+
+    // QWidget interface
+protected:
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // CHESSTABLEWINDOW_H
