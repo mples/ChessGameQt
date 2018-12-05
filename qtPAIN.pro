@@ -37,7 +37,8 @@ SOURCES += \
     king.cpp \
     queen.cpp \
     chessboard.cpp \
-    menuwindow.cpp
+    menuwindow.cpp \
+    endgamedialog.cpp
 
 HEADERS += \
     chesstablewindow.h \
@@ -52,12 +53,14 @@ HEADERS += \
     queen.h \
     chess_const.h \
     chessboard.h \
-    menuwindow.h
+    menuwindow.h \
+    endgamedialog.h
 
 FORMS += \
         mainwindow.ui \
     chesstablewindow.ui \
-    settingswindow.ui
+    settingswindow.ui \
+    endgamedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

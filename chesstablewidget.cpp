@@ -10,7 +10,7 @@
 #include "bishop.h"
 #include "king.h"
 #include "queen.h"
-
+#include "endgamedialog.h"
 
 ChessTableWidget::ChessTableWidget(QWidget *parent) : QGraphicsView(parent)
 {
@@ -156,7 +156,12 @@ void ChessTableWidget::changeMovingSide() {
     else {
         movingSide_ = FigureSide::WHITE;
     }
-    qDebug() << "Checkmate: " << board_.isCheckmate(movingSide_);
+
+    if(board_.isCheckmate(movingSide_)) {
+        EndGameDialog * end_dialog = new EndGameDialog();
+        end_dialog->exec();
+
+    }
 }
 
 void ChessTableWidget::mousePressEvent(QMouseEvent *event)
@@ -181,15 +186,15 @@ void ChessTableWidget::mouseReleaseEvent(QMouseEvent *event) {
         QPoint point = pixelToBoardCoord(event->pos());
         auto found = std::find(availableMoves_.begin(), availableMoves_.end(), point);
         if(found != availableMoves_.end()){
-            moveFigureToPos(selectedFigure_, point);
             clearAvailableMoves();
+            moveFigureToPos(selectedFigure_, point);
             selectedFigure_ = nullptr;
 
         }
         else {
+            clearAvailableMoves();
             selectedFigure_->resetPos();
             selectedFigure_ = nullptr;
-            clearAvailableMoves();
         }
     }
 }
