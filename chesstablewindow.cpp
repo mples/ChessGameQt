@@ -2,6 +2,8 @@
 #include "ui_chesstablewindow.h"
 #include "chesstablewidget.h"
 #include <QDialog>
+#include "QDesktopWidget"
+#include <QStyle>
 
 ChessTableWindow::ChessTableWindow(QWidget *parent, QColor odd, QColor even) :
     QMainWindow(parent),
@@ -10,6 +12,14 @@ ChessTableWindow::ChessTableWindow(QWidget *parent, QColor odd, QColor even) :
     chessTable_ = new ChessTableWidget(this, odd, even);
     ui->horizontalLayout->addWidget(chessTable_);
     QObject::connect(chessTable_, SIGNAL(gameEnd(int)), this, SLOT(onGameFinished(int)));
+    setGeometry(
+                QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                size(),
+                qApp->desktop()->availableGeometry()
+            )
+        );
 }
 
 ChessTableWindow::~ChessTableWindow() {

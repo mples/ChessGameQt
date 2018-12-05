@@ -2,13 +2,8 @@
 <ui version="4.0">
  <class>settingsWindow</class>
  <widget class="QMainWindow" name="settingsWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>224</width>
-    <height>202</height>
-   </rect>
+  <property name="enabled">
+   <bool>true</bool>
   </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -21,14 +16,17 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
    <layout class="QFormLayout" name="formLayout">
     <property name="sizeConstraint">
-     <enum>QLayout::SetMinimumSize</enum>
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
+    <property name="fieldGrowthPolicy">
+     <enum>QFormLayout::ExpandingFieldsGrow</enum>
     </property>
     <property name="horizontalSpacing">
      <number>10</number>
@@ -50,6 +48,12 @@
     </property>
     <item row="1" column="0">
      <widget class="QLabel" name="oddColorLabel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>Odd board color: </string>
       </property>
@@ -57,6 +61,12 @@
     </item>
     <item row="4" column="0">
      <widget class="QLabel" name="evenColorLabel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>Even board color: </string>
       </property>
@@ -64,6 +74,12 @@
     </item>
     <item row="8" column="0">
      <widget class="QPushButton" name="saveButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>Save</string>
       </property>
@@ -71,6 +87,12 @@
     </item>
     <item row="8" column="1">
      <widget class="QPushButton" name="cancelBUtton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>Cancel</string>
       </property>
@@ -79,7 +101,7 @@
     <item row="1" column="1">
      <widget class="QPushButton" name="selectOddColorButton">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -91,6 +113,12 @@
     </item>
     <item row="4" column="1">
      <widget class="QPushButton" name="selectEvenColorButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
        <string>Select</string>
       </property>
@@ -108,8 +136,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>170</x>
-     <y>147</y>
+     <x>178</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>217</x>

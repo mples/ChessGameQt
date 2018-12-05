@@ -16,7 +16,11 @@ public:
 
     // Figure interface
 public:
-    void setBoardPos(QPoint point);
+
+
+    // Figure interface
+public:
+    void updateScenePos();
 };
 
 #endif // PAWN_H

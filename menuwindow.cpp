@@ -2,12 +2,23 @@
 #include "ui_menuwindow.h"
 #include "chesstablewindow.h"
 #include "settingswindow.h"
+#include "QDesktopWidget"
+#include <QStyle>
 
 MenuWindow::MenuWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    setGeometry(
+                QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                size(),
+                qApp->desktop()->availableGeometry()
+            )
+        );
 }
 
 MenuWindow::~MenuWindow()
